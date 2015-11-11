@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin id="cordova-plugin-xinge" version="1.0.0" 
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>XinGe</name>
+    <description>tengcent XinGe plugin for cordova</description>
+    <js-module name="XinGe" src="www/XinGe.js">
+        <clobbers target="XinGe"/>
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="XinGe">
+                <param name="android-package" value="org.apache.cordova.xinge.XinGe"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/XinGe.java" target-dir="src/org/apache/cordova/xinge"/>
+    </platform>
+</plugin>
