@@ -20,54 +20,54 @@ import com.tencent.android.tpush.service.XGPushService;
 public class XinGe extends CordovaPlugin {
 
     @Override
-    // action ²å¼ş·½·¨
-    // args ´«µİ¹ıÀ´µÄ²ÎÊı£¬»ñÈ¡·½·¨Îªargs.getString(Êı×éÖĞµÄÎ»ÖÃ);
-    // callbackContext »Øµ÷º¯Êı
+    // action æ’ä»¶æ–¹æ³•
+    // args ä¼ é€’è¿‡æ¥çš„å‚æ•°ï¼Œè·å–æ–¹æ³•ä¸ºargs.getString(æ•°ç»„ä¸­çš„ä½ç½®);
+    // callbackContext å›è°ƒå‡½æ•°
     public boolean execute(String action, JSONArray args,
                            final CallbackContext callbackContext) throws JSONException {
         Context context = this.cordova.getActivity();
-        // ÅĞ¶ÏÒªµ÷ÓÃµÄ·½·¨
+        // åˆ¤æ–­è¦è°ƒç”¨çš„æ–¹æ³•
         if (action.equals("registerPush")) {
-            // »ñÈ¡µÚÒ»¸ö²ÎÊı£¬ÓÃ»§Ãû
+            // è·å–ç¬¬ä¸€ä¸ªå‚æ•°ï¼Œç”¨æˆ·å
             String userName = args.getString(0);
-            // µ÷ÓÃ·½·¨
+            // è°ƒç”¨æ–¹æ³•
             this.registerPush(context, callbackContext, userName);
             return true;
         } else if (action.equals("unregisterPush")) {
-            // ·´×¢²á£¬È¡ÏûÍÆËÍ
+            // åæ³¨å†Œï¼Œå–æ¶ˆæ¨é€
             XGPushManager.unregisterPush(context);
             return true;
         } else if(action.equals("getToken")){
             this.getToken(context,callbackContext);
             return true;
         }
-        // »Øµ÷Ê§°ÜµÄº¯Êı
-        callbackContext.error("¸Ã·½·¨²»´æÔÚ!");
+        // å›è°ƒå¤±è´¥çš„å‡½æ•°
+        callbackContext.error("è¯¥æ–¹æ³•ä¸å­˜åœ¨!");
         return false;
     }
 
-    // ÍÆËÍ×¢²á
+    // æ¨é€æ³¨å†Œ
     private void registerPush(Context context,
                               final CallbackContext callbackContext, final String userName) {
-        // ÍÆËÍ±ğÃû×¢²á·½·¨£¬¿ÉÒÔ¸ù¾İ±ğÃû½øĞĞÍÆËÍ
+        // æ¨é€åˆ«åæ³¨å†Œæ–¹æ³•ï¼Œå¯ä»¥æ ¹æ®åˆ«åè¿›è¡Œæ¨é€
         XGPushManager.registerPush(context, userName, new XGIOperateCallback() {
             @Override
             public void onSuccess(Object data, int flag) {
-                // »Øµ÷³É¹¦µÄº¯Êı
+                // å›è°ƒæˆåŠŸçš„å‡½æ•°
                 Log.v("====>>>>>", userName);
-                Log.d("TPush", "×¢²á³É¹¦£¬Éè±¸tokenÎª£º" + data);
+                Log.d("TPush", "æ³¨å†ŒæˆåŠŸï¼Œè®¾å¤‡tokenä¸ºï¼š" + data);
                 callbackContext.success();
             }
 
             @Override
             public void onFail(Object data, int errCode, String msg) {
-                // »Øµ÷Ê§°ÜµÄº¯Êı
+                // å›è°ƒå¤±è´¥çš„å‡½æ•°
                 callbackContext.error(msg);
             }
         });
-        // ÔÚXGPushManager.registerPush(context)»òÆäËü°æ±¾µÄ×¢²á½Ó¿ÚÖ®ºóµ÷ÓÃÒÔÏÂ´úÂë
-        // Ê¹ÓÃApplicationContext
-        // ¼æÈİMIUI V6
+        // åœ¨XGPushManager.registerPush(context)æˆ–å…¶å®ƒç‰ˆæœ¬çš„æ³¨å†Œæ¥å£ä¹‹åè°ƒç”¨ä»¥ä¸‹ä»£ç 
+        // ä½¿ç”¨ApplicationContext
+        // å…¼å®¹MIUI V6
         //Intent service = new Intent(context, XGPushService.class);
         //context.startService(service);
     }
@@ -78,7 +78,7 @@ public class XinGe extends CordovaPlugin {
         if(null!=token){
             callbackContext.success(token);
         }else{
-            callbackContext.error("×¢²áÊ§°Ü");
+            callbackContext.error("æ³¨å†Œå¤±è´¥");
         }
     }
 
